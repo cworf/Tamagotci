@@ -1,6 +1,9 @@
 export class Tamagotchi {
-  constructor(btnA, btnB, btnC){
-    this.action = this.whichAction(btnA);
+  constructor(){
+    this.action;
+    this.hungerLvl;
+    this.happyLvl;
+
   }
 
   whichAction(timesPushed){
@@ -10,7 +13,7 @@ export class Tamagotchi {
       3 : "Clean",
       4 : "Heal"
     }
-    return action[timesPushed]
+    this.action = action[timesPushed]
   }
 
 }

@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -15,35 +15,32 @@ var Tamagotchi = exports.Tamagotchi = function () {
 
     this.foodLvl = 5; // between 15 and 20
     this.happyLvl = 5;
-    this.healthLvl = this.health(this.foodLvl, this.happyLvl);
+    this.healthLvl = this.health();
     this.screen = "default";
     this.canFeedSnax = true;
     this.canFeedMeelz = true;
   }
-  //
-  // whichAction(timesPushed){
-  //   const action = {
-  //     1 : this.feedMe(),
-  //     2 : this.letsPlay(),
-  //     3 : this.ohNoPoop(),
-  //     4 : this.ouchieHalp()
-  //   }
-  //   return action[timesPushed]
-  // }
 
   _createClass(Tamagotchi, [{
-    key: 'time',
+    key: "time",
     value: function time() {
       var _this = this;
 
+      if (this.healthLvl <= 10) {
+        alert("Feed or play with me, please.");
+      }
       setInterval(function () {
         _this.foodLvl -= 1;
-        _this.healthLvl -= 1;
         _this.happyLvl -= 1;
-      }, 1000);
+        if (_this.healthLvl <= 10) {
+          console.log("Feed or play with me, please.");
+        }
+        console.log(_this.foodLvl);
+        console.log(_this.happyLvl);
+      }, 60000);
     }
   }, {
-    key: 'feedMe',
+    key: "feedMe",
     value: function feedMe(whatFood) {
       var _this2 = this;
 
@@ -64,13 +61,16 @@ var Tamagotchi = exports.Tamagotchi = function () {
       }
     }
   }, {
-    key: 'letsPlay',
+    key: "letsPlay",
     value: function letsPlay() {
-      this.happyLvl = 20;
+      this.happyLvl += 5;
     }
   }, {
-    key: 'health',
-    value: function health(howMuchFood, howMuchHappy) {}
+    key: "health",
+    value: function health() {
+      var status = this.foodLvl + this.happyLvl;
+      return status;
+    }
   }]);
 
   return Tamagotchi;
@@ -88,6 +88,10 @@ $(function () {
     } else {
       aClicks++;
     }
+    var selector = "#" + pet.screen + " .selector:nth-of-type(" + aClicks + ")";
+    console.log("#" + pet.screen + " .selector:nth-child(" + aClicks + ")");
+    $(selector).show();
+    $(selector).siblings().hide();
   });
 
   //-------Upon B Click-------//
@@ -95,7 +99,7 @@ $(function () {
     if (aClicks != 0) {
       if (pet.screen === "default" && aClicks === 1) {
         pet.screen = "pickFood";
-        printScreen();
+        showScreen();
         aClicks = 0;
       } else if (pet.screen === "default" && aClicks === 2) {
         letsPlay();
@@ -103,16 +107,21 @@ $(function () {
       } else if (pet.screen === "pickFood") {
         feedMe(aClicks);
         pet.screen = "default";
-        printScreen();
+        showScreen();
       }
 
-      pet.whichAction(aClicks); //do the selected action
-      printScreen(); //changes screen to reflect current location within interface
+      showScreen(); //changes screen to reflect current location within interface
       aClicks = 0; //reset click count to 0 after done
     } else {
       alert('please select a task');
     }
+    $('.selector').hide();
   });
+
+  function showScreen() {
+    $("#" + pet.screen + "-bk").show();
+    $("#" + pet.screen + "-bk").siblings().hide();
+  }
 
   $('form').submit(function (event) {
     event.preventDefault();
@@ -121,14 +130,14 @@ $(function () {
 
     $('#location').val("");
     $.ajax({
-      url: 'http://api.openweathermap.org/data/2.5/weather?id=' + city + '&appid=b793c7a59cbbc1de5d5072622f3c4e6d',
+      url: "http://api.openweathermap.org/data/2.5/weather?id=" + city + "&appid=b793c7a59cbbc1de5d5072622f3c4e6d",
       type: 'GET',
       data: {
         format: 'json'
       },
       success: function success(response) {
-        $('.showHumidity').text('The humidity in ' + cityName + ' is ' + response.main.humidity + '%');
-        $('.showTemp').text('The temperature in Kelvins is ' + response.main.temp + '.');
+        $('.showHumidity').text("The humidity in " + cityName + " is " + response.main.humidity + "%");
+        $('.showTemp').text("The temperature in Kelvins is " + response.main.temp + ".");
       },
       error: function error() {
         $('#errors').text("There was an error processing your request. Please try again.");

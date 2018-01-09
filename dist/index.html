@@ -3,10 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Tamagotchi</title>
+    <link href="https://fonts.googleapis.com/css?family=Gorditas:400,700|Press+Start+2P" rel="stylesheet">
+    <link rel="stylesheet" href="css/master.css">
     <script src="js/vendor.min.js" type="text/javascript"></script>
     <script src="js/app.js" type="text/javascript"></script>
   </head>
   <body>
+    <h1>Tamagotchi Land of Happy</h1>
     <form class="" action="index.html" method="post">
       <label for="location">location</label>
       <select class="" id="location" name="">
@@ -20,5 +23,34 @@
     <div class="showTemp">
 
     </div>
+    <div class="tamagotchi-body">
+      <img id="tamagotchi-body-bk" src="img/tamagotchi.png" alt="">
+      <div class="screen">
+        <img id="default-bk" src="img/default.gif" alt="">
+        <img id="eating-bk" style="display:none" src="img/food.gif" alt="">
+        <img id="playing-bk" style="display:none" src="img/play.gif" alt="">
+        <div id="pickFood-bk" style="display:none">
+          <span>Meal</span>
+          <span>Snack</span>
+        </div>
+      </div>
+      <div class="clicks">
+        <div id="pickFood">
+          <span class="selector" style="display:none">></span>
+          <span class="selector" style="display:none">></span>
+        </div>
+        <div id="default">
+          <span class="selector" style="display:none">></span>
+          <span class="selector" style="display:none">></span>
+        </div>
+
+      </div>
+      <button id="btn-a" type="button">A</button>
+      <button id="btn-b" type="button">B</button>
+      <button id="btn-c" type="button">C</button>
+    </div>
+
+
+    </form>
   </body>
 </html>

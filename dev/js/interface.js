@@ -1,3 +1,8 @@
+
+
+
+
+
 $(function(){
   let aClicks = 0;
   const pet = new Tamagotchi();
@@ -10,6 +15,10 @@ $(function(){
     } else {
       aClicks++;
     }
+    const selector = `#${pet.screen} .selector:nth-of-type(${aClicks})`
+    console.log(`#${pet.screen} .selector:nth-child(${aClicks})`);
+    $(selector).show();
+    $(selector).siblings().hide();
   });
 
   //-------Upon B Click-------//
@@ -17,7 +26,7 @@ $(function(){
     if (aClicks != 0) {
       if (pet.screen === "default" && aClicks === 1) {
         pet.screen = "pickFood";
-        printScreen();
+        showScreen();
         aClicks = 0;
       } else if (pet.screen === "default" && aClicks === 2) {
         letsPlay();
@@ -25,17 +34,21 @@ $(function(){
       } else if (pet.screen === "pickFood"){
         feedMe(aClicks)
         pet.screen = "default";
-        printScreen();
+        showScreen();
       }
 
-      pet.whichAction(aClicks); //do the selected action
-      printScreen(); //changes screen to reflect current location within interface
+      showScreen(); //changes screen to reflect current location within interface
       aClicks = 0; //reset click count to 0 after done
     } else {
       alert('please select a task');
     }
+    $('.selector').hide();
   });
 
+  function showScreen(){
+    $(`#${pet.screen}-bk`).show();
+    $(`#${pet.screen}-bk`).siblings().hide();
+  }
 
 
 

@@ -33,7 +33,12 @@ gulp.task('copyCSS', ['copyHTML'], function(){
 		.pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('bowerCSS', ['copyCSS'], function () {
+gulp.task('copyIMG', ['copyCSS'], function(){
+	gulp.src(['dev/img/*.*'])
+		.pipe(gulp.dest('./dist/img'));
+});
+
+gulp.task('bowerCSS', ['copyIMG'], function () {
 	gulp.src(lib.ext('css').files) //grab css
 		.pipe(concat('vendor.css'))
 		.pipe(gulp.dest('./dist/css'));

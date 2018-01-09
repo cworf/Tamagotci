@@ -2,28 +2,26 @@ export class Tamagotchi {
   constructor(){
     this.foodLvl = 5; // between 15 and 20
     this.happyLvl = 5;
-    this.healthLvl = this.health(this.foodLvl, this.happyLvl);
+    this.healthLvl = this.health();
     this.screen = "default";
     this.canFeedSnax = true;
     this.canFeedMeelz = true;
   }
-  //
-  // whichAction(timesPushed){
-  //   const action = {
-  //     1 : this.feedMe(),
-  //     2 : this.letsPlay(),
-  //     3 : this.ohNoPoop(),
-  //     4 : this.ouchieHalp()
-  //   }
-  //   return action[timesPushed]
-  // }
+
 
   time(){
+    if (this.healthLvl <= 10) {
+      alert("Feed or play with me, please.");
+    }
     setInterval( () => {
       this.foodLvl -= 1;
-      this.healthLvl -= 1;
       this.happyLvl -= 1;
-    }, 1000);
+      if (this.healthLvl <= 10) {
+        console.log("Feed or play with me, please.");
+      }
+      console.log(this.foodLvl);
+      console.log(this.happyLvl);
+    }, 60000);
   }
 
   feedMe(whatFood){
@@ -43,14 +41,16 @@ export class Tamagotchi {
     } else {
       alert('Please select fuud for your tamagotchi!');
     }
+
   }
 
   letsPlay(){
-    this.happyLvl = 20;
+    this.happyLvl += 5;
   }
 
-  health(howMuchFood, howMuchHappy){
-
+  health(){
+    const status = this.foodLvl + this.happyLvl;
+    return status;
   }
 
 }

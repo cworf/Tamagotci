@@ -1,17 +1,15 @@
 $(function(){
   let aClicks = 0;
-  const pet = new Tamagotchi()
-
+  const pet = new Tamagotchi();
+  pet.time();
 
   //------ Count number of clicks, cycles from 1 - 4 or 1 - 2 depending on screen -----//
   $('#btn-a').click(function(){
-      if (aClicks === 2) {
-        aClicks = 1
-      } else {
-        aClicks++;
-      }
+    if (aClicks === 2) {
+      aClicks = 1;
+    } else {
+      aClicks++;
     }
-    
   });
 
   //-------Upon B Click-------//
@@ -37,4 +35,4 @@ $(function(){
       alert('please select a task');
     }
   });
-});
+ });

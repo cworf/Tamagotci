@@ -1,8 +1,8 @@
 export class Tamagotchi {
   constructor(){
-    this.foodLvl = Math.floor(Math.random() * 15 + 1); // between 15 and 20
-    this.happyLvl = Math.floor(Math.random() * 15 + 1);
-    this.healthLvl = health(this.foodLvl, this.happyLvl);
+    this.foodLvl = 5; // between 15 and 20
+    this.happyLvl = 5;
+    this.healthLvl = this.health(this.foodLvl, this.happyLvl);
     this.screen = "default";
     this.canFeedSnax = true;
     this.canFeedMeelz = true;
@@ -18,20 +18,30 @@ export class Tamagotchi {
   //   return action[timesPushed]
   // }
 
+  time(){
+    setInterval( () => {
+      this.foodLvl -= 1;
+      this.healthLvl -= 1;
+      this.happyLvl -= 1;
+    }, 1000);
+  }
+
   feedMe(whatFood){
 
-    if (whatFood === 1 && canFeedSnax === true){
+    if (whatFood === 1 && this.canFeedSnax === true){
       this.foodLvl += 5;
       this.canFeedSnax = false;
       setTimeout(() => {
         this.canFeedSnax = true;
       }, 10000);
-    } else if (whatFood === 2 && canFeedMeelz === true){
+    } else if (whatFood === 2 && this.canFeedMeelz === true){
       this.foodLvl += 10;
       this.canFeedMeelz = false;
       setTimeout(() => {
         this.canFeedMeelz = true;
       }, 30000);
+    } else {
+      alert('Please select fuud for your tamagotchi!');
     }
   }
 

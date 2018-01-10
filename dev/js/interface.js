@@ -6,6 +6,7 @@
 $(function(){
   let aClicks = 0;
   const pet = new Tamagotchi();
+  let feeding = false;
   pet.time();
 
   //------ Count number of clicks, cycles from 1 - 4 or 1 - 2 depending on screen -----//
@@ -23,17 +24,19 @@ $(function(){
 
   //-------Upon B Click-------//
   $('#btn-b').click(function(){
+    console.log("clicked");
     if (aClicks != 0) {
       if (pet.screen === "default" && aClicks === 1) {
         pet.screen = "pickFood";
         showScreen();
         aClicks = 0;
       } else if (pet.screen === "default" && aClicks === 2) {
-        letsPlay();
+        pet.letsPlay();
         aClicks = 0;
       } else if (pet.screen === "pickFood"){
-        feedMe(aClicks)
-        pet.screen = "default";
+        pet.feedMe(aClicks)
+        feeding = true;
+        console.log(feeding);
         showScreen();
       }
 
@@ -43,11 +46,23 @@ $(function(){
       alert('please select a task');
     }
     $('.selector').hide();
+    pet.hearts();
   });
 
   function showScreen(){
+    console.log(feeding);
+    if (feeding === true) {
+      $('#eating-bk').show();
+      setTimeout(function(){
+        $('#eating-bk').hide();
+
+        feeding = false;
+      }, 4000);
+      pet.screen = "default";
+    }
+    console.log("showing" + pet.screen);
     $(`#${pet.screen}-bk`).show();
-    $(`#${pet.screen}-bk`).siblings().hide();
+    $(`#${pet.screen}-bk`).siblings().not('#eating-bk').hide();
   }
 
 

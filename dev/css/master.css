@@ -109,6 +109,22 @@ div#pickFood-bk {
     font-family:'Press Start 2P', cursive;
 }
 
+img#eating-bk {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+}
+
 span.selector {
     font-family: 'Press Start 2P', cursive;
+}
+
+i.fa.fa-heart {
+    color: #eb96a4;
+}
+
+.happiness-scale {
+    border: 1px solid;
+    padding: 5px;
+    color: #eb96a4;
 }
